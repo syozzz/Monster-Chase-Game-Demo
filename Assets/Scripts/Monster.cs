@@ -7,17 +7,15 @@ public class Monster : MonoBehaviour
     [HideInInspector]
     public float speed;
 
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D _rigidbody;
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-
-        speed = 7; 
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector2(speed, _rigidbody.velocity.y);
     }
 }

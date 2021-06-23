@@ -20,9 +20,7 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
-    private const string WALK_ANIMATION_NAME = "Walk";
-
-    private const string TAG_GROUND_NAME = "Ground";
+    
 
     void Awake()
     {
@@ -56,17 +54,15 @@ public class Player : MonoBehaviour
         if (movementX > 0)
         {
             _spriteRenderer.flipX = false;
-            _animator.SetBool(WALK_ANIMATION_NAME, true);
+            _animator.SetBool(Constant.WALK_ANIMATION_NAME, true);
         }
         else if (movementX < 0)
         {
             _spriteRenderer.flipX = true;
-            _animator.SetBool(WALK_ANIMATION_NAME, true);
+            _animator.SetBool(Constant.WALK_ANIMATION_NAME, true);
         }
         else
-        {
-            _animator.SetBool(WALK_ANIMATION_NAME, false);
-        }
+            _animator.SetBool(Constant.WALK_ANIMATION_NAME, false);
 
     }
 
@@ -82,10 +78,17 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(TAG_GROUND_NAME))
-        {
+        if (collision.gameObject.CompareTag(Constant.TAG_GROUND_NAME))
             isJumping = false;
-        }
+
+        if (collision.gameObject.CompareTag(Constant.TAG_ENEMY_NAME))
+            Destroy(gameObject);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag(Constant.TAG_ENEMY_NAME))
+            Destroy(gameObject);
+        
+    }
 }
